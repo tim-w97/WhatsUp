@@ -9,7 +9,7 @@ class RegistrationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final firebaseProvider = context.read<FirebaseProvider>();
+    final firebaseProvider = context.watch<FirebaseProvider>();
 
     return Scaffold(
       appBar: AppBar(
@@ -50,10 +50,19 @@ class RegistrationScreen extends StatelessWidget {
               height: 20,
             ),
             MainButton(
-                onPressed: () async {
-                  await firebaseProvider.registerUser();
-                },
-                text: "Register"),
+              onPressed: () async {
+                final user = await firebaseProvider.registerUser();
+                Navigator.pushNamed(context, "/chat");
+              },
+              child: const Text(
+                "Register",
+                style: TextStyle(color: Colors.brown),
+              ),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            if (firebaseProvider.isLoading) const CircularProgressIndicator(),
           ],
         ),
       ),

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
 class MainButton extends StatelessWidget {
-  final String text;
+  final Widget child;
   final VoidCallback onPressed;
 
   const MainButton({
     Key? key,
     required this.onPressed,
-    required this.text,
+    required this.child,
   }) : super(key: key);
 
   @override
@@ -20,11 +20,7 @@ class MainButton extends StatelessWidget {
       onPressed: onPressed,
       child: SizedBox(
         width: 100,
-        child: Text(
-          text,
-          textAlign: TextAlign.center,
-          style: const TextStyle(color: Colors.brown),
-        ),
+        child: Center(child: child),
       ),
     );
   }

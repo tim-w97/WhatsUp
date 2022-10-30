@@ -21,16 +21,24 @@ class HomeScreen extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               MainButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, "/registration");
-                  },
-                  text: "Register"),
+                onPressed: () {
+                  Navigator.pushNamed(context, "/registration");
+                },
+                child: const Text(
+                  "Register",
+                  style: TextStyle(color: Colors.brown),
+                ),
+              ),
               const SizedBox(height: 20),
               MainButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, "/login");
-                  },
-                  text: "Log in"),
+                onPressed: () {
+                  Navigator.pushNamed(context, "/login");
+                },
+                child: const Text(
+                  "Log in",
+                  style: TextStyle(color: Colors.brown),
+                ),
+              ),
             ],
           ),
         ),
