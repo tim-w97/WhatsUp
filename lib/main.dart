@@ -1,14 +1,25 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:whats_up/firebase_options.dart';
+import 'package:whats_up/providers/firebase_provider.dart';
 import 'package:whats_up/screens/home_screen.dart';
 import 'package:whats_up/screens/login_screen.dart';
 import 'package:whats_up/screens/registration_screen.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    Provider(
+      create: (context) => FirebaseProvider(),
+      child: const WhatsUpApp(),
+    ),
+  );
+
+  Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class WhatsUpApp extends StatelessWidget {
+  const WhatsUpApp({super.key});
 
   @override
   Widget build(BuildContext context) {

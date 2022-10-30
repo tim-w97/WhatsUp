@@ -12,14 +12,25 @@ class HomeScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.asset(
-                "images/app_icon.png",
-                width: 200,
+              Hero(
+                tag: "spongi",
+                child: Image.asset(
+                  "images/app_icon.png",
+                  width: 200,
+                ),
               ),
               const SizedBox(height: 20),
-              MainButton(onPressed: () {}, text: "Register"),
+              MainButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, "/registration");
+                  },
+                  text: "Register"),
               const SizedBox(height: 20),
-              MainButton(onPressed: () {}, text: "Log in"),
+              MainButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, "/login");
+                  },
+                  text: "Log in"),
             ],
           ),
         ),
