@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:whats_up/providers/firebase_provider.dart';
@@ -30,23 +31,41 @@ class ChatScreen extends StatelessWidget {
                 ),
               ),
             ),
-            const Expanded(
-              child: Center(
-                child: Text("Chat is coming soon."),
+            Expanded(
+              child: StreamBuilder<QuerySnapshot>(
+                stream: firebaseProvider.messageSnapshots,
+                builder: (context, snapshot) {
+                  if (!snapshot.hasData) {
+                    return const CircularProgressIndicator();
+                  }
+
+                  return Column(
+                    children: snapshot.data!.docs.map((document) {
+                      final sender = document["sender"];
+                      final text = document["text"];
+
+                      return Text("(von $sender) $text");
+                    }).toList(),
+                  );
+                },
               ),
             ),
             Padding(
               padding: const EdgeInsets.all(10),
               child: Row(
                 children: [
-                  const Expanded(
+                  Expanded(
                     child: TextField(
-                      decoration: InputDecoration(hintText: "Your message"),
+                      controller: firebaseProvider.messageController,
+                      decoration:
+                          const InputDecoration(hintText: "Your message"),
                     ),
                   ),
                   const SizedBox(width: 10),
                   MainButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        firebaseProvider.sendMessage();
+                      },
                       child: const Icon(
                         color: Colors.brown,
                         Icons.send,
