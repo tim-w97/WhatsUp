@@ -23,6 +23,7 @@ class ChatScreen extends StatelessWidget {
                   onPressed: () async {
                     await firebaseProvider.logout();
                     Navigator.pop(context);
+                    Navigator.pop(context);
                   },
                   child: const Text(
                     "Log out",
