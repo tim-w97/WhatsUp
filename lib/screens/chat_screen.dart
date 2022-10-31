@@ -41,12 +41,22 @@ class ChatScreen extends StatelessWidget {
                     return const CircularProgressIndicator();
                   }
 
+                  final documents = snapshot.data!.docs;
+
+                  documents.sort((firstDocument, secondDocument) {
+                    Timestamp firstTimstamp = firstDocument["timestamp"];
+                    return firstTimstamp.compareTo(secondDocument["timestamp"]);
+                  });
+
                   return ListView(
-                    children: snapshot.data!.docs.map((document) {
+                    reverse: true,
+                    children: documents.reversed.map((document) {
                       final sender = document["sender"];
                       final text = document["text"];
 
                       return MessageBubble(
+                        isFromMe:
+                            firebaseProvider.currentUser.user?.email == sender,
                         sender: sender,
                         text: text,
                       );

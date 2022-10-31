@@ -7,6 +7,8 @@ class FirebaseProvider with ChangeNotifier {
   final passwordController = TextEditingController();
   final messageController = TextEditingController();
 
+  late UserCredential currentUser;
+
   final _auth = FirebaseAuth.instance;
   final _firestore = FirebaseFirestore.instance;
 
@@ -28,6 +30,7 @@ class FirebaseProvider with ChangeNotifier {
     await _firestore.collection("messages").add({
       "sender": user.email,
       "text": messageController.text,
+      "timestamp": Timestamp.now(),
     });
 
     messageController.clear();
@@ -46,6 +49,7 @@ class FirebaseProvider with ChangeNotifier {
     passwordController.clear();
 
     isLoading = false;
+    currentUser = user;
     notifyListeners();
     return user;
   }
@@ -63,6 +67,7 @@ class FirebaseProvider with ChangeNotifier {
     passwordController.clear();
 
     isLoading = false;
+    currentUser = user;
     notifyListeners();
     return user;
   }

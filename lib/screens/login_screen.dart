@@ -17,13 +17,15 @@ class LoginScreen extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.all(10),
-              child: Hero(
-                tag: "spongi",
-                child: Image.asset(
-                  "images/app_icon.png",
-                  width: 100,
+            Flexible(
+              child: Padding(
+                padding: const EdgeInsets.all(10),
+                child: Hero(
+                  tag: "spongi",
+                  child: Image.asset(
+                    "images/app_icon.png",
+                    width: 100,
+                  ),
                 ),
               ),
             ),
