@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:whats_up/providers/firebase_provider.dart';
 import 'package:whats_up/widgets/main_button.dart';
+import 'package:whats_up/widgets/message_bubble.dart';
 
 class ChatScreen extends StatelessWidget {
   const ChatScreen({Key? key}) : super(key: key);
@@ -40,12 +41,15 @@ class ChatScreen extends StatelessWidget {
                     return const CircularProgressIndicator();
                   }
 
-                  return Column(
+                  return ListView(
                     children: snapshot.data!.docs.map((document) {
                       final sender = document["sender"];
                       final text = document["text"];
 
-                      return Text("(von $sender) $text");
+                      return MessageBubble(
+                        sender: sender,
+                        text: text,
+                      );
                     }).toList(),
                   );
                 },
